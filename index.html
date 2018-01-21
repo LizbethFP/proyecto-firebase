@@ -20,34 +20,63 @@
      <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <header>
-      <nav>
-
+    <div class="container mt-3">
+      <nav class="navbar navbar-dark bg-primary justify-content-between">
+        <a class="navbar-brand">Navbar</a>
+        <div class="form-inline">
+          <input type="email" placeholder="Ingresa email" class="form-control mr-sm-2 form-control-sm" id="email-1">
+          <input type="password" placeholder="Ingresa contraseña" class="form-control mr-sm-2 form-control-sm" id="password-1">
+          <button class="btn btn-dark my-2 my-sm-0 btn-sm" id="btn-enter">Ingresar</button>
+          <button data-toggle="modal" data-target="#exampleModal" class="btn btn-danger my-2 my-sm-0 btn-sm ml-2" id="register-modal">¡Regístrate!</button>
+        </div>
       </nav>
-
-    </header>
+    </div>
 
     <main>
-      <section class="mt-4 col">
+      <!-- <section class="mt-4 col">
         <h4>Registro de usuarios</h4>
-        <input type="email" placeholder="Ingresa email" id="email">
-        <input type="password" placeholder="Ingresa contraseña" id="password">
+        <input type="email" placeholder="Ingresa email" class="form-control mr-sm-2" id="email">
+        <input type="password" placeholder="Ingresa contraseña" class="form-control mr-sm-2" id="password">
         <button class="" id="btn-send">Enviar</button>
       </section>
+
       <section class="mt-5 col">
         <h4>Ingreso de usuarios</h4>
         <input type="email" placeholder="Ingresa email" id="email-1">
         <input type="password" placeholder="Ingresa contraseña" id="password-1">
         <button class="" id="btn-enter">Acceder</button>
-        <div class="content">
+      </section> -->
+      <div class="content">
 
-        </div>
-      </section>
+      </div>
     </main>
 
     <footer>
       <p class="text-center">Copyright&copy;</p>
     </footer>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Formulario de registro</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="email" placeholder="Ingresa email" class="form-control mr-sm-2" id="email">
+            <div class="mt-2">
+            </div>
+            <input type="password" placeholder="Ingresa contraseña" class="form-control mr-sm-2" id="password">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" id="btn-send">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>

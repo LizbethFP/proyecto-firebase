@@ -22,14 +22,19 @@ function registerUser() {
     var email = $('#email').val();
     var password = $('#password').val();
 
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(function() {
+        // Al registrarse el usuario, se pasa la función de verficación de usuario por medio de correo electrónico
+        verify();
+      })
+      .catch(function(error) {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorMessage);
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
       // ...
-    });
+      });
     console.log('diste clic');
   });
 }
@@ -50,17 +55,19 @@ function enterUser() {
   });
 }
 
-/* Observador de inicio de sesión */
+/* Observador de inicio de sesión de usuario */
 function watcher() {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       console.log('Existe usuario activo');
-      show();
+      showLogOutBtn(user);
       // User is signed in.
       var displayName = user.displayName;
       var email = user.email;
       console.log(email);
+      console.log(user);
       var emailVerified = user.emailVerified;
+      console.log(emailVerified);
       var photoURL = user.photoURL;
       var isAnonymous = user.isAnonymous;
       var uid = user.uid;
@@ -74,23 +81,41 @@ function watcher() {
   });
 }
 
-function show() {
+function showLogOutBtn(user) {
+  var user = user;
   var content = $('.content');
-  content.html(`
-    <p class="mt-3">Solo lo ve usuario</p>
-    <button id="log-out">Cerrar sesión</button>
-  `);
-  logOut();
+  if (user.emailVerified) {
+    content.html(`
+      <p class="mt-3">Solo lo ve usuario</p>
+      <button id="log-out">Cerrar sesión</button>
+    `);
+    logOut();
+  }
 }
 
 function logOut() {
-  firebase.auth().signOut()
-    .then(function() {
-      console.log('Saliendo...');
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+  var logOutBtn = $('#log-out');
+  logOutBtn.on('click', function() {
+    firebase.auth().signOut()
+      .then(function() {
+        console.log('Saliendo...');
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  });
+}
+
+/* ENVIAR CORREO PARA VERIFICAR USUARIO */
+function verify() {
+  var user = firebase.auth().currentUser;
+  user.sendEmailVerification().then(function() {
+  // Email sent.
+    console.log('Enviando correo');
+  }).catch(function(error) {
+  // An error happened.
+    console.log('error');
+  });
 }
 
 
